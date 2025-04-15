@@ -1,0 +1,47 @@
+# Patterns to ignore when using Git.
+# If you want to share your .gitignore, visit https://www.gitignore.io for useful templates.
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.tmp
+
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components/
+vendor/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env.local
+.env
+
+# Build output
+dist/
+build/
+tmp/
+out/
+
+# Editor-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Docker related
+/secrets
+
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db

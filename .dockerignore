@@ -1,0 +1,9 @@
+.git
+node_modules
+dist
+build
+tmp
+.env
+.env.local
+docker-compose.override.yml
+secrets

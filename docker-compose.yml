@@ -1,0 +1,51 @@
+services:
+
+  # The MySQL service for the Ghost CMS
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_dev
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=ghostdb
+      - MYSQL_USER=ghostuser
+      - MYSQL_PASSWORD=example
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  # The Ghost CMS service
+  ghost:
+    image: ghost:5-alpine
+    container_name: ghost_cms_dev
+    restart: always
+    ports:
+      - 2368:2368
+    environment:
+      # see https://ghost.org/docs/config/#configuration-options
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__user: "ghostuser"
+      database__connection__password: "example"
+      database__connection__database: "ghostdb"
+      database__connection__port: "3306"
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://localhost:2368
+      # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
+      #NODE_ENV: development
+    volumes:
+      - ghost_data:/var/lib/ghost/content
+    depends_on:
+      - mysql
+volumes:
+  # The volume that is going to store the .next directory where the built
+  # application is located
+  db:
+  ghost_data:

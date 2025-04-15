@@ -1,10 +1,9 @@
 services:
-
   # The MySQL service for the Ghost CMS
   mysql:
     image: mysql:8.0
     container_name: mysql_dev
-    restart: always
+    restart: on-failure
     ports:
       - 3306:3306
     environment:
@@ -25,7 +24,7 @@ services:
   ghost:
     image: ghost:5-alpine
     container_name: ghost_cms_dev
-    restart: always
+    restart: on-failure
     ports:
       - 2368:2368
     environment:

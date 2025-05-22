@@ -12,9 +12,9 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - db-flexyfile-ghost-dei4hu:/var/lib/mysql
+      - db-flexyfile-panel-zxawlo:/var/lib/mysql
     networks:
-      - flexyfile-ghost-dei4hu
+      - flexyfile-panel-zxawlo
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 30s
@@ -44,20 +44,20 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ghost-flexyfile-ghost-dei4hu:/var/lib/ghost/content
+      - ghost-flexyfile-panel-zxawlo:/var/lib/ghost/content
     networks:
-      - flexyfile-ghost-dei4hu
+      - flexyfile-panel-zxawlo
     labels:
-      - traefik.http.routers.flexyfile-ghost-dei4hu-26-web.rule=Host(`panel.flexyfile.com`)
-      - traefik.http.routers.flexyfile-ghost-dei4hu-26-web.entrypoints=web
-      - traefik.http.services.flexyfile-ghost-dei4hu-26-web.loadbalancer.server.port=2368
-      - traefik.http.routers.flexyfile-ghost-dei4hu-26-web.service=flexyfile-ghost-dei4hu-26-web
+      - traefik.http.routers.flexyfile-panel-zxawlo-26-web.rule=Host(`panel.flexyfile.com`)
+      - traefik.http.routers.flexyfile-panel-zxawlo-26-web.entrypoints=web
+      - traefik.http.services.flexyfile-panel-zxawlo-26-web.loadbalancer.server.port=2368
+      - traefik.http.routers.flexyfile-panel-zxawlo-26-web.service=flexyfile-panel-zxawlo-26-web
       - traefik.enable=true
 volumes:
-  ghost-flexyfile-ghost-dei4hu: null
-  db-flexyfile-ghost-dei4hu: null
+  ghost-flexyfile-panel-zxawlo: null
+  db-flexyfile-panel-zxawlo: null
 
 networks:
   flexyfile-ghost-dei4hu:
-    name: flexyfile-ghost-dei4hu
+    name: flexyfile-panel-zxawlo
     external: true

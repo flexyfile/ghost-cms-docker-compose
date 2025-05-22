@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   # The MySQL service for the Ghost CMS
   mysql:

@@ -7,10 +7,10 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=example
-      - MYSQL_DATABASE=ghostdb
-      - MYSQL_USER=ghostuser
-      - MYSQL_PASSWORD=example
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - db:/var/lib/mysql
     healthcheck:
@@ -31,14 +31,14 @@ services:
       # see https://ghost.org/docs/config/#configuration-options
       database__client: mysql
       database__connection__host: mysql
-      database__connection__user: "ghostuser"
-      database__connection__password: "example"
-      database__connection__database: "ghostdb"
+      database__connection__user: "${MYSQL_USER}"
+      database__connection__password: "${MYSQL_PASSWORD}"
+      database__connection__database: "${MYSQL_DATABASE}"
       database__connection__port: "3306"
       # this url value is just an example, and is likely wrong for your environment!
-      APP_URL: http://localhost:2368
+      APP_URL: ${APP_URL}
       # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
-      #NODE_ENV: development
+      NODE_ENV: ${NODE_ENV}
     volumes:
       - ghost_data:/var/lib/ghost/content
     depends_on:

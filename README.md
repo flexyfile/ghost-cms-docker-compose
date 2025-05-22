@@ -23,12 +23,12 @@ cp .env.example .env.local
 Edit the `.env.local` file to set the appropriate values:
 ```bash
 NODE_ENV=development
-url=https://panel.flexyfile.com
+APP_URL=https://panel.flexyfile.com
 # Database configuration (use environment variables for sensitive data)
-# MYSQL_ROOT_PASSWORD should be set in the environment
-# MYSQL_DATABASE should be set in the environment
-# MYSQL_USER should be set in the environment
-# MYSQL_PASSWORD should be set in the environment
+MYSQL_ROOT_PASSWORD= 
+MYSQL_DATABASE=
+MYSQL_USER=
+MYSQL_PASSWORD=
 ```
 ### 3. Start the services
 ```bash
@@ -58,7 +58,7 @@ Environment Variables
 The following environment variables are used to configure the Ghost CMS:
 
 - `NODE_ENV:` The environment in which the application is running (development or production).
-- `url:` The URL of the Ghost CMS
+- `APP_URL:` The URL of the Ghost CMS
 - `GHOST_DB_HOST:` The hostname of the MySQL database.
 - `GHOST_DB_USER:` The username for the MySQL database.
 - `GHOST_DB_PASSWORD:` The password for the MySQL database.

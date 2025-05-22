@@ -1,9 +1,10 @@
+version: "3.8"
 services:
   # The MySQL service for the Ghost CMS
   mysql:
     image: mysql:8.0
     container_name: mysql_dev
-    restart: on-failure
+    restart: always
     ports:
       - 3306:3306
     environment:
@@ -12,7 +13,9 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - db:/var/lib/mysql
+      - db-flexyfile-ghost-dei4hu:/var/lib/mysql
+    networks:
+      - flexyfile-ghost-dei4hu
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 30s
@@ -24,7 +27,7 @@ services:
   ghost:
     image: ghost:5-alpine
     container_name: ghost_cms_dev
-    restart: on-failure
+    restart: always
     ports:
       - 2368:2368
     environment:
@@ -36,15 +39,26 @@ services:
       database__connection__database: "${MYSQL_DATABASE}"
       database__connection__port: "3306"
       # this url value is just an example, and is likely wrong for your environment!
-      APP_URL: ${APP_URL}
+      url: ${GHOST_HOST}
       # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
       NODE_ENV: ${NODE_ENV}
-    volumes:
-      - ghost_data:/var/lib/ghost/content
     depends_on:
       - mysql
+    volumes:
+      - ghost-flexyfile-ghost-dei4hu:/var/lib/ghost/content
+    networks:
+      - flexyfile-ghost-dei4hu
+    labels:
+      - traefik.http.routers.flexyfile-ghost-dei4hu-26-web.rule=Host(`panel.flexyfile.com`)
+      - traefik.http.routers.flexyfile-ghost-dei4hu-26-web.entrypoints=web
+      - traefik.http.services.flexyfile-ghost-dei4hu-26-web.loadbalancer.server.port=2368
+      - traefik.http.routers.flexyfile-ghost-dei4hu-26-web.service=flexyfile-ghost-dei4hu-26-web
+      - traefik.enable=true
 volumes:
-  # The volume that is going to store the .next directory where the built
-  # application is located
-  db:
-  ghost_data:
+  ghost-flexyfile-ghost-dei4hu: null
+  db-flexyfile-ghost-dei4hu: null
+
+networks:
+  flexyfile-ghost-dei4hu:
+    name: flexyfile-ghost-dei4hu
+    external: true

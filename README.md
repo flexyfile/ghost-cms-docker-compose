@@ -18,13 +18,13 @@ cd panel
 
 ### 2. Set up environment variables
 
-Create a `.env.local` file based on the `.env.example` file and configure the necessary environment variables.
+Create a `.env` file based on the `.env.example` file and configure the necessary environment variables.
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
-Edit the `.env.local` file to set the appropriate values:
+Edit the `.env` file to set the appropriate values:
 
 ```bash
 NODE_ENV=development
@@ -87,4 +87,4 @@ The following volumes are used to persist data:
 ## Security
 
 Sensitive information such as database passwords should be stored in environment variables or Docker secrets, not directly in the docker-compose.yml file.
-Ensure that the .env.local file is added to .gitignore to prevent it from being committed to the repository.
+Ensure that the .env file is added to .gitignore to prevent it from being committed to the repository.

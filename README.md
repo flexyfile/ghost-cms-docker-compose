@@ -73,17 +73,16 @@ The following environment variables are used to configure the Ghost CMS:
 
 - `NODE_ENV:` The environment in which the application is running (development or production).
 - `GHOST_HOST:` The URL of the Ghost CMS
-- `GHOST_DB_HOST:` The hostname of the MySQL database.
-- `GHOST_DB_USER:` The username for the MySQL database.
-- `GHOST_DB_PASSWORD:` The password for the MySQL database.
-- `GHOST_DB_NAME:` The name of the MySQL database.
-- `GHOST_ADMIN_EMAIL:` The email address for the Ghost CMS admin user.
+- `MYSQL_USER:` The username for the MySQL database.
+- `MYSQL_PASSWORD:` The password for the MySQL database.
+- `MYSQL_DATABASE:` The name of the MySQL database.
+- `MYSQL_ROOT_PASSWORD:` The root password for the MySQL database.
 
 Volumes
 The following volumes are used to persist data:
 
+- `ghost:` Stores the Ghost CMS content.
 - `db:` Stores the MySQL database data.
-- `ghost_data:` Stores the Ghost CMS content.
 
 ## Security
 
